@@ -1,9 +1,16 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
+
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+
 import { Usuario } from '../models/usuario.model';
+
+import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
+
+import { Store } from '@ngrx/store';
+import { AppState } from '../app.reducer';
+import * as authAcitons from '../auth/auth.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +18,24 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class AuthService {
 
   constructor( public auth: AngularFireAuth,
-               private firestore: AngularFirestore ) { }
+               private firestore: AngularFirestore,
+               private store: Store<AppState> ) { }
 
   initAuthListener(): void {
     this.auth.authState.subscribe( fuser => {
-      console.log( fuser );
-      console.log( fuser?.uid );
-      console.log( fuser?.email );
+      // console.log( fuser );
+      // console.log( fuser?.uid );
+      // console.log( fuser?.email );
+      if (fuser) {
+        this.firestore.doc(`${ fuser.uid }/usuario`).valueChanges()
+          .subscribe( firestoreUser => {
+            console.log(firestoreUser);
+          });
+        const tempUser = new Usuario('abc', 'borra', 'ed@gami.com');
+        this.store.dispatch( authAcitons.setUser( { user: tempUser }) );
+      } else {
+        console.log('Llamar unSet del user');
+      }
     });
   }
 
