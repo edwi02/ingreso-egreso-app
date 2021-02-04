@@ -24,4 +24,12 @@ export class IngresoEgresoService {
       .add({ ...ingresoEgreso }); // Tiene que ser un objeto
 
   }
+
+  initIngresosEgresosListener( uid: string ): any {
+    // Obtener la información de Firestore. Regresa un observable
+    this.firestore.collection(`${ uid }/ingresos-egresos/items`).valueChanges()
+    .subscribe( algo => {
+      console.log(algo);
+    });
+  }
 }
