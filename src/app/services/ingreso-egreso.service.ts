@@ -6,6 +6,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { IngresoEgreso } from '../models/ingreso-egreso.model';
 
 import { AuthService } from './auth.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -26,10 +27,30 @@ export class IngresoEgresoService {
   }
 
   initIngresosEgresosListener( uid: string ): any {
+
+    // map( snapshot => { snapshot.map( doc => ({
+    //  uid: doc.payload.doc.id,
+    //  ...doc.payload.doc.data() as any
+    //  }));
+    // })
+
     // Obtener la información de Firestore. Regresa un observable
-    this.firestore.collection(`${ uid }/ingresos-egresos/items`).valueChanges()
-    .subscribe( algo => {
-      console.log(algo);
-    });
+    this.firestore.collection(`${ uid }/ingresos-egresos/items`)
+      .snapshotChanges()
+      .pipe(
+        map( snapshot => { // El map transforma lo que sea que yo retorne y lo pasa a la siguiente instrucción
+          return snapshot.map( doc => { // Con el snapshot.map se recorre cada elemento de los elementos
+
+            return {
+              // uid:
+              uid: doc.payload.doc.id,
+              ...doc.payload.doc.data() as any
+            };
+          });
+        })
+      )
+      .subscribe( algo => {
+        console.log(algo);
+      });
   }
 }
