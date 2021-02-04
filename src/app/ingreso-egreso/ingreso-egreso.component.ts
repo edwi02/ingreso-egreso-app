@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { IngresoEgresoService } from '../services/ingreso-egreso.service';
+import { IngresoEgreso } from '../models/ingreso-egreso.model';
+
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-ingreso-egreso',
@@ -12,7 +17,8 @@ export class IngresoEgresoComponent implements OnInit {
   ingresoForm: FormGroup;
   tipo: string;
 
-  constructor( private fb: FormBuilder ) {
+  constructor( private fb: FormBuilder,
+               private ingresoEgresoService: IngresoEgresoService ) {
     this.tipo = 'ingreso';
   }
 
@@ -26,8 +32,16 @@ export class IngresoEgresoComponent implements OnInit {
   guardar(): void {
 
     if ( this.ingresoForm.invalid){ return; }
-    console.log( this.ingresoForm.value );
-    console.log(this.tipo);
+
+    const { descripcion, monto } = this.ingresoForm.value;
+    const ingresoEgreso = new IngresoEgreso(descripcion, monto, this.tipo );
+    this.ingresoEgresoService.crearIngresoEgreso( ingresoEgreso )
+      .then( () => {
+        this.ingresoForm.reset();
+        Swal.fire('Registro creado', descripcion, 'success');
+      })
+      .catch( err => Swal.fire('Error', err.message, 'error' ) );
+
   }
 
 }

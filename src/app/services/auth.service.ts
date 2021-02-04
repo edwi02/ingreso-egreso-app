@@ -18,6 +18,11 @@ import * as authActions from '../auth/auth.actions';
 export class AuthService {
 
   userSubscription: Subscription;
+  private _user: Usuario;
+
+  get user(): Usuario {
+    return this._user;
+  }
 
   constructor( public auth: AngularFireAuth,
                private firestore: AngularFirestore,
@@ -36,10 +41,12 @@ export class AuthService {
               console.log({firestoreUser});
 
               const user = Usuario.fromFirebase( firestoreUser );
+              this._user = user;
               this.store.dispatch( authActions.setUser( { user }) );
             });
       } else {
         // no existe
+        this._user = null;
         this.userSubscription.unsubscribe();
         this.store.dispatch( authActions.unSetUser() );
       }
