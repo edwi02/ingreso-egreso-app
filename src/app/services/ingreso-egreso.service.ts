@@ -35,7 +35,7 @@ export class IngresoEgresoService {
     // })
 
     // Obtener la información de Firestore. Regresa un observable
-    this.firestore.collection(`${ uid }/ingresos-egresos/items`)
+    return this.firestore.collection(`${ uid }/ingresos-egresos/items`)
       .snapshotChanges()
       .pipe(
         map( snapshot => { // El map transforma lo que sea que yo retorne y lo pasa a la siguiente instrucción
@@ -48,9 +48,6 @@ export class IngresoEgresoService {
             };
           });
         })
-      )
-      .subscribe( algo => {
-        console.log(algo);
-      });
+      );
   }
 }
