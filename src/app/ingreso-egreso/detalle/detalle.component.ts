@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
 
+import { IngresoEgresoService } from '../../services/ingreso-egreso.service';
 import { IngresoEgreso } from '../../models/ingreso-egreso.model';
 
 import { Subscription } from 'rxjs';
@@ -18,7 +19,8 @@ export class DetalleComponent implements OnInit, OnDestroy {
   ingresosEgresos: IngresoEgreso[] = [];
   ingresoSubs: Subscription;
 
-  constructor( private store:Store<AppState>) { }
+  constructor( private store: Store<AppState>,
+               private ingresoEgresoService: IngresoEgresoService) { }
 
   ngOnInit(): void {
     this.ingresoSubs =  this.ingresoSubs = this.store.select('ingresosEgresos')
@@ -30,7 +32,7 @@ export class DetalleComponent implements OnInit, OnDestroy {
   }
 
   borrar( uid: string ): void {
-    console.log('Borrar', uid);
+    this.ingresoEgresoService.borrarIngresoEgreso( uid );
   }
 
 }

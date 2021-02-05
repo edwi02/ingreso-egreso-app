@@ -7,6 +7,7 @@ import { IngresoEgreso } from '../models/ingreso-egreso.model';
 
 import { AuthService } from './auth.service';
 import { map } from 'rxjs/operators';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -53,5 +54,13 @@ export class IngresoEgresoService {
           });
         })
       );
+  }
+
+  borrarIngresoEgreso( uidItem: string ) {
+    const uid = this.authService.user.uid;
+
+    this.firestore.doc(`${ uid }/ingresos-egresos/items/${ uidItem }`).delete()
+      .then(  () => Swal.fire('Borrado', 'Item borrado', 'success') )
+      .catch( err => Swal.fire('Error', err.message, 'error') );
   }
 }
