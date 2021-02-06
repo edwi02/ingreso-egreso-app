@@ -21,8 +21,9 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
+
+import { AuthModule } from './auth/auth.module';
+
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { IngresoEgresoComponent } from './ingreso-egreso/ingreso-egreso.component';
 import { EstadisticaComponent } from './ingreso-egreso/estadistica/estadistica.component';
@@ -36,8 +37,6 @@ import { OrdenIngresoPipe } from './pipes/orden-ingreso.pipe';
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    RegisterComponent,
     DashboardComponent,
     IngresoEgresoComponent,
     EstadisticaComponent,
@@ -49,6 +48,7 @@ import { OrdenIngresoPipe } from './pipes/orden-ingreso.pipe';
   ],
   imports: [
     BrowserModule,
+    AuthModule,
     AppRoutingModule,
     ReactiveFormsModule,
     AngularFireModule,
