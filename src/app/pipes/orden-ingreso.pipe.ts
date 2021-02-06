@@ -8,17 +8,14 @@ export class OrdenIngresoPipe implements PipeTransform {
 
   transform( items: IngresoEgreso[] ): IngresoEgreso[] {
 
-    const lstItems =  items.sort( (a, b) => {
-      if (a.tipo === 'ingreso') {
-        return -1;
-      } else {
-        return 1;
-      }
-    });
+    return items.slice().sort( (a, b) => {
 
-    console.log(lstItems);
-
-    return lstItems;
+        if (a.tipo === 'ingreso') {
+          return -1;
+        } else {
+          return 1;
+        }
+      });
 
   }
 
