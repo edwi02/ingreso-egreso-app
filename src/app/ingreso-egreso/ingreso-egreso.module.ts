@@ -12,7 +12,7 @@ import { DetalleComponent } from './detalle/detalle.component';
 import { OrdenIngresoPipe } from '../pipes/orden-ingreso.pipe';
 
 import { SharedModule } from '../shared/shared.module';
-import { AppRoutingModule } from '../app-routing.module';
+import { DashboardRoutesModule } from '../dashboard/dashboard-routes.module';
 
 
 
@@ -30,7 +30,7 @@ import { AppRoutingModule } from '../app-routing.module';
     ReactiveFormsModule,
     ChartsModule,
     SharedModule,
-    AppRoutingModule,
+    DashboardRoutesModule
   ]
 })
 export class IngresoEgresoModule { }
