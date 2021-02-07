@@ -23,14 +23,13 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AppComponent } from './app.component';
 
 import { AuthModule } from './auth/auth.module';
+import { SharedModule } from './shared/shared.module';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { IngresoEgresoComponent } from './ingreso-egreso/ingreso-egreso.component';
 import { EstadisticaComponent } from './ingreso-egreso/estadistica/estadistica.component';
 import { DetalleComponent } from './ingreso-egreso/detalle/detalle.component';
-import { FooterComponent } from './shared/footer/footer.component';
-import { NavbarComponent } from './shared/navbar/navbar.component';
-import { SidebarComponent } from './shared/sidebar/sidebar.component';
+
 import { OrdenIngresoPipe } from './pipes/orden-ingreso.pipe';
 
 
@@ -41,14 +40,14 @@ import { OrdenIngresoPipe } from './pipes/orden-ingreso.pipe';
     IngresoEgresoComponent,
     EstadisticaComponent,
     DetalleComponent,
-    FooterComponent,
-    NavbarComponent,
-    SidebarComponent,
     OrdenIngresoPipe
   ],
   imports: [
     BrowserModule,
+
     AuthModule,
+    SharedModule,
+
     AppRoutingModule,
     ReactiveFormsModule,
     AngularFireModule,
