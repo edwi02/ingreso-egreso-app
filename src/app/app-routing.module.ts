@@ -14,6 +14,8 @@ const routes: Routes = [
     { path: 'register', component: RegisterComponent },
     {
         path: '',
+        // canActivate: [ AuthGuard ], // Con este se carga el módulo aún cuando no se encuentra autenticado.
+        canLoad: [ AuthGuard ], // Para usar este es requerido implementar canLoad en el auth.guard
         loadChildren: () => import('./ingreso-egreso/ingreso-egreso.module')
                                 .then( m => m.IngresoEgresoModule )
     },
