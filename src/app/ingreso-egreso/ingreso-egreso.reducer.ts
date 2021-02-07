@@ -8,7 +8,7 @@ export interface State {
 }
 
 export interface AppStateWithIngreso extends AppState {
-    ingresosEgresos: State
+    ingresosEgresos: State;
 }
 
 export const initialState: State = {
