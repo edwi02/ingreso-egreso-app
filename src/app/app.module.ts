@@ -23,7 +23,6 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { AppComponent } from './app.component';
-import { IngresoEgresoModule } from './ingreso-egreso/ingreso-egreso.module';
 
 
 @NgModule({
@@ -35,7 +34,6 @@ import { IngresoEgresoModule } from './ingreso-egreso/ingreso-egreso.module';
 
     AuthModule,
     SharedModule,
-    IngresoEgresoModule,
 
     AppRoutingModule,
     ReactiveFormsModule,
